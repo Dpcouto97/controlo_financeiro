@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if flag == True %}
+        <div class="alert alert-warning border border-dark" role="alert">
+          <h3>WARNING: O Tipo de Despesa "{{ tipodespesa.nome }}" tem despesas associadas! Isto impossibilita a sua eliminação.</h3>
+          <h4><a href="{% url 'tipodespesa-lista-view' %}">Click here</a> to find more information about it. </h4>
+        </div>
+
+{% else %}
+  <form action='.' method="POST"> {% csrf_token %}
+    <div class="alert alert-danger border border-dark" role="alert">
+      <h1>Tem a certeza que pretende eliminar definitivamente o tipo de despesa - "{{tipodespesa.nome}}"?</h1>
+      <p><input type='submit' value='Sim' /> <a href="{% url 'tipodespesa-lista-view' %}">Cancelar</a></p>
+    </div>
+  </form>
+{% endif %}
+{% endblock %}>
