@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'financial_control',
     'crispy_forms',
+    'django_bootstrap_icons',
 ]
 
 MIDDLEWARE = [

@@ -7,9 +7,8 @@ from .models import Despesa, TipoDespesa, Receita
 
 
 class TipoDespesaRegistoForm(forms.ModelForm):
-    nome = forms.CharField(label=False, widget=forms.TextInput(attrs={"placeholder": "Nome"}), required=True)
-    descricao = forms.CharField(label=False, widget=forms.TextInput(attrs={"placeholder": "Descricao"}), required=True)
-    valor_normal = forms.DecimalField(label=False, widget=forms.TextInput(attrs={"placeholder": "Formato: 2.00"}))
+    nome = forms.CharField(label=False, required=True)
+    descricao = forms.CharField(label=False, widget=forms.Textarea(attrs={'name':'body', 'rows':3, 'cols':23}), required=True)
     user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
@@ -17,15 +16,14 @@ class TipoDespesaRegistoForm(forms.ModelForm):
         fields = [
             'nome',
             'descricao',
-            'valor_normal',
             'user'
         ]
 
 
 class DespesaRegistoForm(forms.ModelForm):
     # Has to be forms.ModelForm, otherwise we cant use form.save() in the view
-    nome = forms.CharField(label=False, widget=forms.TextInput(attrs={"placeholder": "Nome"}), required=True)
-    descricao = forms.CharField(label=False, widget=forms.TextInput(attrs={"placeholder": "Descricao"}), required=True)
+    nome = forms.CharField(label=False, required=True)
+    descricao = forms.CharField(label=False, widget=forms.Textarea(attrs={'name':'body', 'rows':3, 'cols':23}), required=False)
     valor = forms.DecimalField(label=False, widget=forms.TextInput(attrs={"placeholder": "Formato: 2.00"}))
     user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
     tipo_despesa = forms.ModelChoiceField(queryset=TipoDespesa.objects.all(), label=False, required=True)

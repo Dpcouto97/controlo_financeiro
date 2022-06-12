@@ -15,6 +15,7 @@ def despesa_registo_view(request):
     if form.is_valid():
         form.instance.user = request.user.id
         form.save()
+        return HttpResponseRedirect(reverse('despesa-lista-view'))
     else:
         print(form.errors)
 
@@ -22,33 +23,29 @@ def despesa_registo_view(request):
 
 
 def despesa_lista_view(request):
-    siems = Siem.objects.all()
-    return render(request, "siems/siem_list.html", {"siems_list": siems})
+    despesas = Despesa.objects.filter(user=request.user.id)
+    return render(request, "despesa/despesa_lista.html", {"despesa_lista": despesas})
 
 
 def despesa_detalhes_view(request, my_id):
-    siem = get_object_or_404(Siem, id=my_id)
-    return render(request, "siems/siem_details.html", {"siem": siem})
+    despesa = get_object_or_404(Despesa, id=my_id)
+    return render(request, "despesa/despesa_detalhes.html", {"despesa": despesa})
 
 
 def despesa_atualiza_view(request, my_id):
-    siem = get_object_or_404(Siem, id=my_id)
-    form = SiemRegisterForm(request.POST or None, instance=siem)
+    despesa = get_object_or_404(Despesa, id=my_id)
+    form = DespesaRegistoForm(request.POST or None, instance=despesa)
     if form.is_valid():
+        form.instance.user = request.user.id
         form.save()
-        return HttpResponseRedirect(reverse('siem-list-view'))
-    return render(request, "siems/siem_update.html", {'form': form})
+        return HttpResponseRedirect(reverse('despesa-lista-view'))
+    return render(request, "despesa/despesa_atualiza.html", {'form': form, "despesa": despesa})
 
 
 def despesa_elimina_view(request, my_id):
-    siem = get_object_or_404(Siem, id=my_id)
-
-    #Checks if the SIEM has clients associated, if yes than flag = True.
-    flag = False
-    if len(siem.client_set.all()) !=0:
-        flag = True
+    despesa = get_object_or_404(Despesa, id=my_id)
 
     if request.method == "POST":
-        siem.delete()
-        return HttpResponseRedirect(reverse('siem-list-view'))
-    return render(request, "siems/siem_delete.html", {"siem": siem, "flag": flag})
+        despesa.delete()
+        return HttpResponseRedirect(reverse('despesa-lista-view'))
+    return render(request, "despesa/despesa_elimina.html", {"despesa":despesa})

@@ -1,3 +1,4 @@
+{% load bootstrap_icons %}
 <!-- Title Bar Starts -->
 <div class="container-fluid px-md-5">
     <div class="row justify-content-between">
@@ -24,10 +25,10 @@
 </div>
 <!-- Title Bar Ends -->
 <!-- Nabvar Starts-->
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-darker ftco-navbar-light" id="ftco-navbar">
 <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="fa fa-bars"></span> Menu
+    {% bs_icon 'justify' size='1em' %} Menu
   </button>
   <div class="collapse navbar-collapse" id="ftco-nav">
     <ul class="navbar-nav m-auto">
@@ -36,7 +37,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkClient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Despesa</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkClient">
             <a class="dropdown-item" href="{% url 'despesa-registo-view' %}">Registar Despesa</a>
-            <a class="dropdown-item" href="">Listar Despesas</a>
+            <a class="dropdown-item" href="{% url 'despesa-lista-view' %}">Listar Despesas</a>
           </div>
     </li>
     <li class="nav-item dropdown">
